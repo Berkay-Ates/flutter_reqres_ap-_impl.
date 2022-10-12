@@ -1,4 +1,6 @@
 import 'package:fake_api_usecase/core/enum/network_enums.dart';
+import 'package:fake_api_usecase/view/home/service/get_user_scnario.dart';
+import 'package:fake_api_usecase/view/home/service/service_instance.dart';
 import 'package:mobx/mobx.dart';
 import '../../../core/base/view_model/base_view_interface.dart';
 import '../../../core/init/network/connectivity/interface/network_connection_state.dart';
@@ -12,12 +14,13 @@ class HomeViewModel = _HomeViewModel with _$HomeViewModel;
 
 abstract class _HomeViewModel with Store, IBaseView {
   late INetworkConnectivity networkConnectivity;
+  final getUserInfoGenericServiceUsecase = ServiceRequests<GetUserInfo>(GetUserInfo());
 
   @observable
   HomeModel? homeViewUsers;
 
   @observable
-  List<Data>? userData;
+  List<Data>? userData = [];
 
   @observable
   NetworkEnums? networkEnums;
@@ -32,21 +35,28 @@ abstract class _HomeViewModel with Store, IBaseView {
   void init() {
     networkConnectivity = NetworkConnectivity();
     checkFirstTimeConnectivity();
-    getUserInfo();
+    getUsersGeneric();
   }
 
   @action
-  Future<void> getUserInfo() async {
+  Future<void> getUsersGeneric() async {
     changeLoading();
-    final response = await networkServiceInstance.dio.get('/users?page=2');
-    final responseBody = response.data;
-    if (responseBody is Map<String, dynamic>) {
-      homeViewUsers = HomeModel.fromJson(responseBody);
-      userData = homeViewUsers?.data ?? [];
-    }
-
+    homeViewUsers = await getUserInfoGenericServiceUsecase.getUsersGenericScenario();
+    userData = homeViewUsers?.data ?? [];
     changeLoading();
   }
+
+  // @action
+  // Future<void> getUserInfo() async {
+  //   changeLoading();
+  //   final response = await networkServiceInstance.dio.get('/users?page=2');
+  //   final responseBody = response.data;
+  //   if (responseBody is Map<String, dynamic>) {
+  //     homeViewUsers = HomeModel.fromJson(responseBody);
+  //     userData = homeViewUsers?.data ?? [];
+  //   }
+  //   changeLoading();
+  // }
 
   @action
   void changeLoading() {

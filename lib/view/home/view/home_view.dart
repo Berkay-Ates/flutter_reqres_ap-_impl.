@@ -31,22 +31,23 @@ class _HomeViewState extends State<HomeView> {
           floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.person_add_alt),
             onPressed: () {
-              modelView.getUserInfo();
+              modelView.getUsersGeneric();
             },
           ),
           body: Observer(
             builder: (_) => (modelView.networkEnums == NetworkEnums.offline)
                 ? const Center(child: Text('no internet'))
-                : modelView.isLoading == true
+                : (modelView.isLoading == true)
                     ? const Center(child: CircularProgressIndicator())
                     : ListView.builder(
                         itemCount: modelView.userData?.length ?? 0,
                         itemBuilder: ((context, index) => ListTile(
-                              title: Text(
-                                modelView.userData?[index].email ?? 'no data right there',
+                              title: Text(modelView.userData?[index].email ?? 'no data right there'),
+                              leading: Text(
+                                (modelView.userData?[index].id.toString() ?? 'no data right there'),
+                                style: Theme.of(context).textTheme.headline3,
                               ),
-                            )),
-                      ),
+                            ))),
           ),
         );
       }),

@@ -73,12 +73,12 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
     });
   }
 
-  late final _$getUserInfoAsyncAction =
-      AsyncAction('_HomeViewModel.getUserInfo', context: context);
+  late final _$getUsersGenericAsyncAction =
+      AsyncAction('_HomeViewModel.getUsersGeneric', context: context);
 
   @override
-  Future<void> getUserInfo() {
-    return _$getUserInfoAsyncAction.run(() => super.getUserInfo());
+  Future<void> getUsersGeneric() {
+    return _$getUsersGenericAsyncAction.run(() => super.getUsersGeneric());
   }
 
   late final _$checkFirstTimeConnectivityAsyncAction = AsyncAction(
