@@ -28,12 +28,25 @@ class _HomeViewState extends State<HomeView> {
       onPageBuilder: ((BuildContext context, HomeViewModel modelView) {
         return Scaffold(
           appBar: AppBar(),
+          floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.person_add_alt),
+            onPressed: () {
+              modelView.getUserInfo();
+            },
+          ),
           body: Observer(
             builder: (_) => (modelView.networkEnums == NetworkEnums.offline)
                 ? const Center(child: Text('no internet'))
                 : modelView.isLoading == true
                     ? const Center(child: CircularProgressIndicator())
-                    : const Center(child: Text('internet exists')),
+                    : ListView.builder(
+                        itemCount: modelView.userData?.length ?? 0,
+                        itemBuilder: ((context, index) => ListTile(
+                              title: Text(
+                                modelView.userData?[index].email ?? 'no data right there',
+                              ),
+                            )),
+                      ),
           ),
         );
       }),

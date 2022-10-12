@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:fake_api_usecase/core/enum/network_enums.dart';
-import 'package:fake_api_usecase/core/init/network/interface/network_interface.dart';
+
+import '../network_interface.dart';
 
 class NetworkConnectivity extends INetworkConnectivity {
   late final Connectivity _connectivity;

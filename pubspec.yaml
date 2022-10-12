@@ -17,12 +17,20 @@ dependencies:
   #flutter
   cupertino_icons: ^1.0.2
 
-  #Network_Connectivity
+  #google
+  json_annotation: ^4.7.0
+
+  #network connectivity
   connectivity_plus: ^2.3.9
 
-  #State management
+  #network requests
+  dio: ^4.0.6
+
+  #state management
   mobx: ^2.1.0
   flutter_mobx: ^2.0.6+4
+  
+  
 
 
 dev_dependencies:
@@ -31,9 +39,12 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
 
-  #Mobx code generation 
+
   mobx_codegen: ^2.0.7+3
   build_runner: ^2.3.0
+
+  json_serializable: ^6.5.1
+  
 
 
 flutter:

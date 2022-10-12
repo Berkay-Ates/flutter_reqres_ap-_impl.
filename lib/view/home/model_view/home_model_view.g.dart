@@ -9,6 +9,38 @@ part of 'home_model_view.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$HomeViewModel on _HomeViewModel, Store {
+  late final _$homeViewUsersAtom =
+      Atom(name: '_HomeViewModel.homeViewUsers', context: context);
+
+  @override
+  HomeModel? get homeViewUsers {
+    _$homeViewUsersAtom.reportRead();
+    return super.homeViewUsers;
+  }
+
+  @override
+  set homeViewUsers(HomeModel? value) {
+    _$homeViewUsersAtom.reportWrite(value, super.homeViewUsers, () {
+      super.homeViewUsers = value;
+    });
+  }
+
+  late final _$userDataAtom =
+      Atom(name: '_HomeViewModel.userData', context: context);
+
+  @override
+  List<Data>? get userData {
+    _$userDataAtom.reportRead();
+    return super.userData;
+  }
+
+  @override
+  set userData(List<Data>? value) {
+    _$userDataAtom.reportWrite(value, super.userData, () {
+      super.userData = value;
+    });
+  }
+
   late final _$networkEnumsAtom =
       Atom(name: '_HomeViewModel.networkEnums', context: context);
 
@@ -41,6 +73,14 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
     });
   }
 
+  late final _$getUserInfoAsyncAction =
+      AsyncAction('_HomeViewModel.getUserInfo', context: context);
+
+  @override
+  Future<void> getUserInfo() {
+    return _$getUserInfoAsyncAction.run(() => super.getUserInfo());
+  }
+
   late final _$checkFirstTimeConnectivityAsyncAction = AsyncAction(
       '_HomeViewModel.checkFirstTimeConnectivity',
       context: context);
@@ -68,6 +108,8 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
   @override
   String toString() {
     return '''
+homeViewUsers: ${homeViewUsers},
+userData: ${userData},
 networkEnums: ${networkEnums},
 isLoading: ${isLoading}
     ''';
