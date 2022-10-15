@@ -29,7 +29,9 @@ dependencies:
   #state management
   mobx: ^2.1.0
   flutter_mobx: ^2.0.6+4
-  
+
+  #shared preferences
+  shared_preferences: ^2.0.15  
   
 
 

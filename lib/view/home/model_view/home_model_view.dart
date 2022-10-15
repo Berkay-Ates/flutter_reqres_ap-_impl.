@@ -1,7 +1,13 @@
+import 'dart:developer';
+
 import 'package:fake_api_usecase/core/enum/network_enums.dart';
+import 'package:fake_api_usecase/core/enum/shared_enums.dart';
+import 'package:fake_api_usecase/core/init/cache/shared_manager/shared_List_manager.dart';
+import 'package:fake_api_usecase/core/init/cache/shared_manager/shared_manager.dart';
 import 'package:fake_api_usecase/view/home/service/get_user_scnario.dart';
 import 'package:fake_api_usecase/view/home/service/service_instance.dart';
 import 'package:mobx/mobx.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/base/view_model/base_view_interface.dart';
 import '../../../core/init/network/connectivity/interface/network_connection_state.dart';
 import '../../../core/init/network/connectivity/network_interface.dart';
@@ -15,12 +21,16 @@ class HomeViewModel = _HomeViewModel with _$HomeViewModel;
 abstract class _HomeViewModel with Store, IBaseView {
   late INetworkConnectivity networkConnectivity;
   final getUserInfoGenericServiceUsecase = ServiceRequests<GetUserInfo>(GetUserInfo());
+  late SharedManager sharedManager;
+
+  @observable
+  SharedListManager? sharedListManager;
 
   @observable
   HomeModel? homeViewUsers;
 
   @observable
-  List<Data>? userData = [];
+  List<Data?>? userData = [];
 
   @observable
   NetworkEnums? networkEnums;
@@ -36,15 +46,64 @@ abstract class _HomeViewModel with Store, IBaseView {
     networkConnectivity = NetworkConnectivity();
     checkFirstTimeConnectivity();
     getUsersGeneric();
+    initSharedStuff();
+  }
+
+  @action
+  Future<bool> saveModelViewListUsers(SharedEnums key) async {
+    if (isLoading == false && sharedListManager != null) {
+      changeLoading();
+      if (userData?.isNotEmpty == true) {
+        bool result = await sharedListManager!.saveListUsers(userData, key);
+        inspect(result);
+        changeLoading();
+        return result;
+      }
+    }
+    changeLoading();
+    return false;
+  }
+
+  @action
+  void getUsers(SharedEnums key) {
+    if (sharedListManager != null) {
+      List<Data?>? savedUsers = sharedListManager!.getListUsers(key);
+      if (savedUsers?.isNotEmpty ?? false) {
+        inspect(savedUsers);
+        print('here was worked');
+        userData = savedUsers;
+      }
+    }
+  }
+
+  @action
+  Future<void> initSharedStuff() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    sharedManager = SharedManager(sharedPref: preferences);
+    sharedListManager = SharedListManager(sharedManager: sharedManager);
   }
 
   @action
   Future<void> getUsersGeneric() async {
-    changeLoading();
-    homeViewUsers = await getUserInfoGenericServiceUsecase.getUsersGenericScenario();
-    userData = homeViewUsers?.data ?? [];
-    changeLoading();
+    if (isLoading == false) {
+      changeLoading();
+      homeViewUsers = await getUserInfoGenericServiceUsecase.getUsersGenericScenario();
+      userData = homeViewUsers?.data ?? [];
+      changeLoading();
+    }
   }
+
+  @action
+  void changeLoading() {
+    isLoading = !isLoading;
+  }
+
+  @action
+  Future checkFirstTimeConnectivity() async {
+    networkEnums = await networkConnectivity.checkConnectivity();
+  }
+}
+
 
   // @action
   // Future<void> getUserInfo() async {
@@ -57,14 +116,3 @@ abstract class _HomeViewModel with Store, IBaseView {
   //   }
   //   changeLoading();
   // }
-
-  @action
-  void changeLoading() {
-    isLoading = !isLoading;
-  }
-
-  @action
-  Future checkFirstTimeConnectivity() async {
-    networkEnums = await networkConnectivity.checkConnectivity();
-  }
-}

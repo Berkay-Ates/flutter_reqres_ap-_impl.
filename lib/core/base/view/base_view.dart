@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 //* typedef ModelViewFunction<T extends Store> = void Function(T modelView);
 
 class BaseView<T extends Store> extends StatefulWidget {
+  //* block sınıfları store'dan turedigi icin block sınıfımızı view olustururken baseView'a verirsek otamatik olarak ulasımımız olur
   const BaseView({
     Key? key,
     required this.viewModel,

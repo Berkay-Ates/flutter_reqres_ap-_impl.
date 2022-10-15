@@ -1,7 +1,6 @@
-import 'package:fake_api_usecase/core/init/theme/generic_theme/generic_apptheme.dart';
+import 'package:fake_api_usecase/core/init/theme/light_theme/theme/light_theme.dart';
 import 'package:fake_api_usecase/view/home/view/home_view.dart';
 import 'package:flutter/material.dart';
-import 'core/init/theme/dark_theme/theme/dark_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: GenericAppTheme<AppDarkTheme>(AppDarkTheme()).theme,
+      theme: AppLightTheme().appTheme,
       home: const HomeView(),
     );
   }
