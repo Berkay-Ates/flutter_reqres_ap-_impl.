@@ -7,8 +7,9 @@ class SingletonSharedObject {
   SharedPreferences? _sharedPreferences;
   SharedPreferences? get sharedPreferences => _sharedPreferences;
 
-  Future<void> initSharedPreferences() async {
-    _sharedPreferences = await SharedPreferences.getInstance();
+  Future<SharedPreferences?> get initSharedPreferences async {
+    _sharedPreferences ??= await SharedPreferences.getInstance();
+    return _sharedPreferences;
   }
 
   SingletonSharedObject._();

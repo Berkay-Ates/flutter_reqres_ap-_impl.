@@ -32,7 +32,7 @@ class _HomeViewState extends State<HomeView> {
             actions: [
               IconButton(
                   onPressed: () {
-                    modelView.getUsers(SharedEnums.usersEmail);
+                    modelView.getCachedUsers(SharedEnums.usersEmail);
                     //TODO get data from the memory
                   },
                   icon: const Icon(Icons.data_saver_on))

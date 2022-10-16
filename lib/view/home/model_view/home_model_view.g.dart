@@ -9,8 +9,7 @@ part of 'home_model_view.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$HomeViewModel on _HomeViewModel, Store {
-  late final _$sharedListManagerAtom =
-      Atom(name: '_HomeViewModel.sharedListManager', context: context);
+  late final _$sharedListManagerAtom = Atom(name: '_HomeViewModel.sharedListManager', context: context);
 
   @override
   SharedListManager? get sharedListManager {
@@ -25,8 +24,7 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
     });
   }
 
-  late final _$homeViewUsersAtom =
-      Atom(name: '_HomeViewModel.homeViewUsers', context: context);
+  late final _$homeViewUsersAtom = Atom(name: '_HomeViewModel.homeViewUsers', context: context);
 
   @override
   HomeModel? get homeViewUsers {
@@ -41,8 +39,7 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
     });
   }
 
-  late final _$userDataAtom =
-      Atom(name: '_HomeViewModel.userData', context: context);
+  late final _$userDataAtom = Atom(name: '_HomeViewModel.userData', context: context);
 
   @override
   List<Data?>? get userData {
@@ -57,8 +54,7 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
     });
   }
 
-  late final _$networkEnumsAtom =
-      Atom(name: '_HomeViewModel.networkEnums', context: context);
+  late final _$networkEnumsAtom = Atom(name: '_HomeViewModel.networkEnums', context: context);
 
   @override
   NetworkEnums? get networkEnums {
@@ -73,8 +69,7 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
     });
   }
 
-  late final _$isLoadingAtom =
-      Atom(name: '_HomeViewModel.isLoading', context: context);
+  late final _$isLoadingAtom = Atom(name: '_HomeViewModel.isLoading', context: context);
 
   @override
   bool get isLoading {
@@ -94,45 +89,38 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
 
   @override
   Future<bool> saveModelViewListUsers(SharedEnums key) {
-    return _$saveModelViewListUsersAsyncAction
-        .run(() => super.saveModelViewListUsers(key));
+    return _$saveModelViewListUsersAsyncAction.run(() => super.saveModelViewListUsers(key));
   }
 
-  late final _$initSharedStuffAsyncAction =
-      AsyncAction('_HomeViewModel.initSharedStuff', context: context);
+  late final _$initSharedStuffAsyncAction = AsyncAction('_HomeViewModel.initSharedStuff', context: context);
 
   @override
   Future<void> initSharedStuff() {
     return _$initSharedStuffAsyncAction.run(() => super.initSharedStuff());
   }
 
-  late final _$getUsersGenericAsyncAction =
-      AsyncAction('_HomeViewModel.getUsersGeneric', context: context);
+  late final _$getUsersGenericAsyncAction = AsyncAction('_HomeViewModel.getUsersGeneric', context: context);
 
   @override
   Future<void> getUsersGeneric() {
     return _$getUsersGenericAsyncAction.run(() => super.getUsersGeneric());
   }
 
-  late final _$checkFirstTimeConnectivityAsyncAction = AsyncAction(
-      '_HomeViewModel.checkFirstTimeConnectivity',
-      context: context);
+  late final _$checkFirstTimeConnectivityAsyncAction =
+      AsyncAction('_HomeViewModel.checkFirstTimeConnectivity', context: context);
 
   @override
   Future<dynamic> checkFirstTimeConnectivity() {
-    return _$checkFirstTimeConnectivityAsyncAction
-        .run(() => super.checkFirstTimeConnectivity());
+    return _$checkFirstTimeConnectivityAsyncAction.run(() => super.checkFirstTimeConnectivity());
   }
 
-  late final _$_HomeViewModelActionController =
-      ActionController(name: '_HomeViewModel', context: context);
+  late final _$_HomeViewModelActionController = ActionController(name: '_HomeViewModel', context: context);
 
   @override
-  void getUsers(SharedEnums key) {
-    final _$actionInfo = _$_HomeViewModelActionController.startAction(
-        name: '_HomeViewModel.getUsers');
+  void getCachedUsers(SharedEnums key) {
+    final _$actionInfo = _$_HomeViewModelActionController.startAction(name: '_HomeViewModel.getUsers');
     try {
-      return super.getUsers(key);
+      return super.getCachedUsers(key);
     } finally {
       _$_HomeViewModelActionController.endAction(_$actionInfo);
     }
@@ -140,8 +128,7 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
 
   @override
   void changeLoading() {
-    final _$actionInfo = _$_HomeViewModelActionController.startAction(
-        name: '_HomeViewModel.changeLoading');
+    final _$actionInfo = _$_HomeViewModelActionController.startAction(name: '_HomeViewModel.changeLoading');
     try {
       return super.changeLoading();
     } finally {
